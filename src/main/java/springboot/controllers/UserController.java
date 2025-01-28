@@ -27,20 +27,20 @@ public class UserController {
     public String AllUsers(Model model) {
         List<User> users=userService.listUsers();
         model.addAttribute("users", users);
-        return "userList";
+        return "user/userList";
     }
 
     @GetMapping("/add")
     public String showAddUser ( Model model) {
         model.addAttribute("user", new User());
-        return "addUser";
+        return "user/addUser";
     }
 
     @PostMapping("/add")
     public String save( @ModelAttribute("user") @Valid User user,
                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "addUser";
+            return "user/addUser";
         }
         userService.save(user);
         return "redirect:/users";
@@ -51,7 +51,7 @@ public class UserController {
         Optional<User> userById = userService.findById(id);
         if (userById.isPresent()) {
             model.addAttribute("user", userById.get());
-            return "editUser";
+            return "user/editUser";
         } else {
             return "redirect:/users";
         }
@@ -60,7 +60,7 @@ public class UserController {
     public String editUser(@ModelAttribute("user") @Valid User user,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "editUser";
+            return "user/editUser";
         }
         userService.editUser(user);
         return "redirect:/users";
@@ -71,7 +71,7 @@ public class UserController {
         Optional<User> userById = userService.findById(id);
         if (userById.isPresent()) {
             model.addAttribute("user", userById.get());
-            return "deleteUser";
+            return "user/eleteUser";
         } else {
             return "redirect:/users";
         }
